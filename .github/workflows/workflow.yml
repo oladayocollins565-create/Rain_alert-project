@@ -1,16 +1,16 @@
-name: Send Weather Alert
+name: Send Weather WhatsApp Alert
 
 on:
   schedule:
-    - cron: '00 05 * * *'
+    - cron: '0 5 * * *'   # runs daily at 7:00 UTC
   workflow_dispatch:
 
 jobs:
-  weather-alert:
+  weather-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -18,10 +18,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install packages
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run script
+      - name: Run main.py
+        env:
+          API_KEY: ${{ secrets.OWM_API_KEY }}
+          ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
         run: |
           python main.py
