@@ -55,8 +55,7 @@ client = Client(account_sid, auth_token)
 
 numbers = [
     "whatsapp:+2347072850274",
-    "whatsapp:+2347078699595",
-    "whatsapp:+2349136779676"
+    "whatsapp:+2347025004975"
 ]
 
 for number in numbers:
